@@ -74,5 +74,5 @@ export const items = pgTable("bidder_items",{
   id: serial("id").primaryKey(),
   userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
-
+ startingPrice: integer("startingPrice").notNull().default(0),
 } );
