@@ -1,27 +1,43 @@
-'use server'
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { database } from "@/db/database";
 import { items } from "@/db/schema";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { getSignedUrlForS3Object } from "@/lib/s3";
 
-export async function createIteAction(formData: FormData) {
-    const session = await auth();
+export async function createUploadUrlAction(key: string, type: string) {
+  return await getSignedUrlForS3Object(key, type);
+}
 
-    if(!session) {
-        throw new Error("unauthorized");
-    }
+export async function createItemAction({
+  fileName,
+  name,
+  startingPrice,
+}: {
+  fileName: string;
+  name: string;
+  startingPrice: number;
+}) {
+  const session = await auth();
 
-    const user = session.user;
-    if(!user || !user.id){
-        throw new Error("unauthorized");
-    }
-  
-        await database.insert(items).values({
-          name: formData.get("name") as string,
-          startingPrice: Number(formData.get("startingPrice")),
-          userId: user.id,
-        });
-        redirect("/");
-      }
+  if (!session) {
+    throw new Error("unauthorized");
+  }
+
+  const user = session.user;
+  if (!user || !user.id) {
+    throw new Error("unauthorized");
+  }
+
+
+
+  await database.insert(items).values({
+    name,
+    startingPrice,
+    fileKey: fileName,
+    userId: user.id,
+  });
+  redirect("/");
+}
