@@ -1,17 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { database } from "@/db/database";
-import { items } from "@/db/schema";
 import { pageTitlestyles } from "@/styles";
 import { getImageUrl } from "@/util/files";
-import { formatDistance, subDays } from "date-fns";
-import { eq } from "drizzle-orm";
+import { formatDistance } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { createBidAction } from "./actions";
+import { getBidsforItem } from "@/data-access/bids";
+import { getItem } from "@/data-access/items";
 
 
 function formatTimeStamp(timeStamp: Date) {
    return formatDistance(timeStamp, new Date(), { addSuffix: true });
-//=> "3 days ago"
 }
 
 export default async function ItemPage({
@@ -19,9 +18,7 @@ export default async function ItemPage({
 }: {
   params: { itemId: string };
 }) {
-  const item = await database.query.items.findFirst({
-    where: eq(items.id, parseInt(itemId)),
-  });
+  const item = await getItem(parseInt(itemId));
 
   if (!item) {
     return (
@@ -45,25 +42,10 @@ export default async function ItemPage({
     );
   }
 
-//   const bids =[
-//     { id: 1, amount: 1000, bidder: "User 1", username: "user1",timeStamp: new Date(), },
-//     { id: 2, amount: 1500, bidder: "User 2", username: "user2",timeStamp: new Date(), },
-//     { id: 3, amount: 2000, bidder: "User 3", username: "user3",timeStamp: new Date(), },
-//     { id: 4, amount: 2500, bidder: "User 4", username: "user4",timeStamp: new Date(), },
-//     { id: 5, amount: 3000, bidder: "User 5", username: "user5",timeStamp: new Date(), },
-//     { id: 6, amount: 3500, bidder: "User 6", username: "user6",timeStamp: new Date(), },
-//     { id: 1, amount: 1000, bidder: "User 1", username: "user1",timeStamp: new Date(), },
-//     { id: 2, amount: 1500, bidder: "User 2", username: "user2",timeStamp: new Date(), },
-//     { id: 3, amount: 2000, bidder: "User 3", username: "user3",timeStamp: new Date(), },
-//     { id: 4, amount: 2500, bidder: "User 4", username: "user4",timeStamp: new Date(), },
-//     { id: 5, amount: 3000, bidder: "User 5", username: "user5",timeStamp: new Date(), },
-//     { id: 6, amount: 3500, bidder: "User 6", username: "user6",timeStamp: new Date(), }
-//   ]
+const allBids = await getBidsforItem(item.id);
 
 
-const bids = [];
-
-const hasBids = bids.length > 0;
+const hasBids = allBids.length > 0;
 
   return (
     <main className="space-y-8">
@@ -81,7 +63,11 @@ const hasBids = bids.length > 0;
           />
           <div className="text-xl space-y-4">
             <div>
-                Starting Price of{" "}
+                Current Price :- {" "}
+                <span className="font-bold">₹{item.startingPrice+item.currentBid}</span>
+            </div>
+            <div>
+                Starting Price :- {" "}
                 <span className="font-bold">₹{item.startingPrice}</span>
             </div>
             <div>
@@ -90,16 +76,22 @@ const hasBids = bids.length > 0;
           </div>
         </div>
         <div className="space-y-4 flex-1">
-            <h2 className="text-2xl font-bold">Current Bids</h2>
+            <div className="flex justify-between">
+                <h2 className="text-2xl font-bold">Current Bids</h2>
+                <form action={createBidAction.bind(null,item.id)}>
+                    <Button>Place a Bid</Button>
+                </form>
+            </div>
 
     {hasBids ? (
          <ul className="space-y-4">
-         {bids.map((bid) => (
+         {allBids.map((bid) => (
              <li key={bid.id} className="bg-slate-400 rounded-xl p-6">
                  <div className="flex gap-4">
+                    {/* <div className="width-[50] height-[50] rounded-3xl">{bid.user.image}</div> */}
                      <div >
                          <span className="font-bold">₹{bid.amount}</span> by {" "}
-                         <span className="font-bold">{bid.username}</span>
+                         <span className="font-bold">{bid.user.name}</span>
                      </div>
                      <div> {formatTimeStamp(bid.timeStamp)}</div>
                  </div>
@@ -110,7 +102,6 @@ const hasBids = bids.length > 0;
         <div className="gap-8 flex flex-col items-center  p-12">
             <Image className="" src="/package.svg" width="300" height="300" alt="Package" />
             <h2 className="text-xl font-semibold">No Bids Yet</h2>
-            <Button>Place a Bid</Button>
         </div>
      )}
 

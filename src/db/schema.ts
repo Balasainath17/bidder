@@ -1,4 +1,4 @@
-
+import { relations } from "drizzle-orm";
 import {
   integer,
   pgTable,
@@ -18,7 +18,7 @@ export const users = pgTable("bidder_user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 });
- 
+
 export const accounts = pgTable(
   "bidder_account",
   {
@@ -42,7 +42,7 @@ export const accounts = pgTable(
     }),
   })
 );
- 
+
 export const sessions = pgTable("bidder_session", {
   sessionToken: text("sessionToken").primaryKey(),
   userId: text("userId")
@@ -50,7 +50,7 @@ export const sessions = pgTable("bidder_session", {
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
- 
+
 export const verificationTokens = pgTable(
   "bidder_verificationToken",
   {
@@ -65,18 +65,35 @@ export const verificationTokens = pgTable(
   })
 );
 
-export const bids = pgTable("bidder_bids", {
+export const items = pgTable("bidder_items", {
   id: serial("id").primaryKey(),
-});
-
-
-export const items = pgTable("bidder_items",{
-  id: serial("id").primaryKey(),
-  userId: text("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   fileKey: text("fileKey").notNull(),
- startingPrice: integer("startingPrice").notNull().default(0),
- bidInterval: integer("bidInterval").notNull().default(50),
-} );
+  currentBid: integer("currentBid").notNull().default(0),
+  startingPrice: integer("startingPrice").notNull().default(0),
+  bidInterval: integer("bidInterval").notNull().default(50),
+});
+
+export const bids = pgTable("bidder_bids", {
+  id: serial("id").primaryKey(),
+  amount: integer("amount").notNull(),
+  itemId: serial("itemId")
+    .notNull()
+    .references(() => items.id, { onDelete: "cascade" }),
+    userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+    timeStamp: timestamp("timeStamp", {mode: "date"}).notNull(),
+});
+
+export const usersRelations = relations(bids, ({ one }) => ({
+  user: one(users,{
+    fields: [bids.userId],
+    references: [users.id],
+  }),
+}));
 
 export type Item = typeof items.$inferSelect;
