@@ -13,7 +13,7 @@ export function SignOut() {
         )
       }}
     >
-      <Button type="submit">Sign Out</Button>
+      <Button type="submit">Sign Out!</Button>
     </form>
   )
 }

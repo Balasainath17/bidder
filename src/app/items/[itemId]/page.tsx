@@ -7,6 +7,7 @@ import Link from "next/link";
 import { createBidAction } from "./actions";
 import { getBidsforItem } from "@/data-access/bids";
 import { getItem } from "@/data-access/items";
+import { auth } from "@/auth";
 
 
 function formatTimeStamp(timeStamp: Date) {
@@ -18,6 +19,8 @@ export default async function ItemPage({
 }: {
   params: { itemId: string };
 }) {
+
+  const session = await auth();
   const item = await getItem(parseInt(itemId));
 
   if (!item) {
@@ -46,6 +49,8 @@ const allBids = await getBidsforItem(item.id);
 
 
 const hasBids = allBids.length > 0;
+
+const canPlaceBid = session && item.userId !== session.user?.id;
 
   return (
     <main className="space-y-8">
@@ -78,9 +83,11 @@ const hasBids = allBids.length > 0;
         <div className="space-y-4 flex-1">
             <div className="flex justify-between">
                 <h2 className="text-2xl font-bold">Current Bids</h2>
-                <form action={createBidAction.bind(null,item.id)}>
-                    <Button>Place a Bid</Button>
+              {canPlaceBid && (
+                <form action={createBidAction.bind(null, item.id)}>
+                  <Button>Place a Bid</Button>
                 </form>
+               )}
             </div>
 
     {hasBids ? (
