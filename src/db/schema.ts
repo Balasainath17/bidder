@@ -76,6 +76,7 @@ export const items = pgTable("bidder_items",{
   name: text("name").notNull(),
   fileKey: text("fileKey").notNull(),
  startingPrice: integer("startingPrice").notNull().default(0),
+ bidInterval: integer("bidInterval").notNull().default(50),
 } );
 
 export type Item = typeof items.$inferSelect;

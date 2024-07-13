@@ -1,0 +1,1 @@
+export const pageTitlestyles = "text-4xl font-bold";

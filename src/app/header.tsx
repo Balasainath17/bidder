@@ -15,9 +15,15 @@ const session = await auth();
                     <Image src="/logo.png" width="50" height="50" alt="Logo" />
                     <span className="font-[600] text-[25px] pt-3">Bidder</span>
                 </Link>
-                <div>
+                <div className="flex items-center gap-8">
+                    <Link href="/" className="hover:text-[#020000] text-[#ffff] flex items-center">
+                        <span className="font-[400] text-[18px] pt-3 ">All Auctions</span>
+                    </Link>
                     <Link href="/items/create" className="hover:text-[#020000] text-[#ffff] flex items-center">
-                        <span className="font-[400] text-[18px] pt-3 ">Auction an Item</span>
+                        <span className="font-[400] text-[18px] pt-3 ">Create Auction</span>
+                    </Link>
+                    <Link href="/auctions" className="hover:text-[#020000] text-[#ffff] flex items-center">
+                        <span className="font-[400] text-[18px] pt-3 ">My Auctions</span>
                     </Link>
                 </div>
                 
