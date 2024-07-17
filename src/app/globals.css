@@ -75,9 +75,9 @@
   }
   
   .hero_animation {
-    /* background-image: linear-gradient(147.92deg,hsla(183, 64%, 57%, 0.781) 10.41%, hsla(0,0%,100%,0) 89.25%);
-    animation: changeBackgroundColor 8s infinite alternate; */
-    background-image: linear-gradient( 109.6deg,  rgba(112,246,255,0.33) 11.2%, rgba(221,108,241,0.26) 42%, rgba(229,106,253,0.71) 71.5%, rgba(123,183,253,1) 100.2% );
+    background-image: linear-gradient(147.92deg,hsla(183, 64%, 57%, 0.781) 10.41%, hsla(0,0%,100%,0) 89.25%);
+    animation: changeBackgroundColor 8s infinite alternate;
+    /* background-image: linear-gradient( 109.6deg,  rgba(112,246,255,0.33) 11.2%, rgba(221,108,241,0.26) 42%, rgba(229,106,253,0.71) 71.5%, rgba(123,183,253,1) 100.2% ); */
     
   }
 

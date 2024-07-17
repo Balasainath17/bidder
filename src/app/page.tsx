@@ -6,7 +6,7 @@ export default async function HomePage() {
   const allItems = await database.query.items.findMany();
 
   return (
-    <div className="w-[100%]  hero_animation m-auto flex justify-center items-center min-h-screen translate-y-0 opacity-100 transition-all duration-1000 ease-in-out">
+    <div className="w-[100%]  hero_animation m-auto flex justify-center items-center h-[89vh] translate-y-0 opacity-100 transition-all duration-1000 ease-in-out overflow-y-hidden">
             <div className="w-[90%] 800px:w-[80%]">
                 <h1 className=" text-[#000000c7] text-[30px] mx-auto w-full 1000px:text-[50px] font-[900] font-Josefin py-2 1000px:leading-[75px] text-center">
                 Elevate Your Bidding Experience, 

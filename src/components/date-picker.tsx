@@ -38,8 +38,9 @@ export function DatePickerDemo({
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
-          selected={date}
+          selected={date} 
           onSelect={setDate}
+          minDate={new Date()}
           initialFocus
         />
       </PopoverContent>
