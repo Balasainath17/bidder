@@ -27,7 +27,7 @@ export default async function ItemPage({
     return (
       <div className="flex flex-col items-center justify-center space-y-8">
         <Image
-          className="pt-8"
+          className="pt-8 object-cover w-[300px] h-[300px]"
           src="/package.svg"
           width="300"
           height="300"
@@ -39,7 +39,7 @@ export default async function ItemPage({
           different auction item.
         </p>
         <Button asChild>
-          <Link href={`/`}>View Auctions</Link>
+          <Link href={`/allAuctions`}>View Auctions</Link>
         </Button>
       </div>
     );

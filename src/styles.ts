@@ -1,1 +1,1 @@
-export const pageTitlestyles = "text-4xl heading_title font-bold ";
+export const pageTitlestyles = "text-3xl sm:text-4xl heading_title font-bold ";

@@ -15,9 +15,9 @@ export function ItemCard({ item }: { item: Item }) {
       key={item.id}
       className="border p-4 md:p-8 rounded-xl space-y-2 flex flex-col mx-auto bg-[#a8f1f6] shadow-2xl max-w-xs md:max-w-sm"
     >
-     <div className="image-wrapper flex justify-center items-center m-auto">
+     <div className="flex justify-center items-center m-auto">
      <Image
-        className="rounded-lg"
+        className="rounded-lg object-cover w-[200px] h-[200px]"
         src={getImageUrl(item.fileKey)}
         alt={item.name}
         width={200}
