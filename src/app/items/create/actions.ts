@@ -48,5 +48,5 @@ export async function createItemAction({
     bidInterval,
     endDate,
   });
-  redirect("/");
+  redirect("/allAuctions");
 }
