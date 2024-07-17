@@ -22,6 +22,19 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      screens:{
+        "1000px": "1000px",
+        "1100px": "1100px",
+        "1200px": "1200px",
+        "1300px": "1300px",
+        "1400px": "1400px",
+        "900px": "900px",
+        "800px": "800px",
+        "600px": "600px",
+        "500px": "500px",
+        "400px": "400px",
+        "300px": "300px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

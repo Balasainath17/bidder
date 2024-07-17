@@ -35,10 +35,10 @@ export default async function MyAuctionsPage() {
 const hasItems = allItems.length > 0;
 
   return (
-    <main className="space-y-8">
+    <main className="space-y-8 container mx-auto py-12">
       <h1 className={pageTitlestyles}>Your Current Auctions</h1>
       {hasItems? (
-      <div className="grid grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 600px:grid-cols-2 900px:grid-cols-3 lg:grid-cols-4 gap-8">
          { allItems.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}

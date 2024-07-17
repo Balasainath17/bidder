@@ -16,6 +16,7 @@
     "@aws-sdk/s3-request-presigner": "^3.614.0",
     "@knocklabs/node": "^0.6.13",
     "@knocklabs/react": "^0.2.25",
+    "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "class-variance-authority": "^0.7.0",
@@ -27,7 +28,9 @@
     "next-auth": "^5.0.0-beta.19",
     "postgres": "^3.4.4",
     "react": "^18",
+    "react-day-picker": "^8.10.1",
     "react-dom": "^18",
+    "react-icons": "^5.2.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

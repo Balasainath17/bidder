@@ -14,11 +14,17 @@ export async function createUploadUrlAction(key: string, type: string) {
 export async function createItemAction({
   fileName,
   name,
+  location,
   startingPrice,
+  bidInterval,
+  endDate
 }: {
   fileName: string;
   name: string;
+  location: string;
   startingPrice: number;
+  bidInterval: number;
+  endDate: Date;
 }) {
   const session = await auth();
 
@@ -35,9 +41,12 @@ export async function createItemAction({
 
   await database.insert(items).values({
     name,
+    location,
     startingPrice,
     fileKey: fileName,
     userId: user.id,
+    bidInterval,
+    endDate,
   });
   redirect("/");
 }

@@ -71,10 +71,12 @@ export const items = pgTable("bidder_items", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
+  location: text("location").notNull(),
   fileKey: text("fileKey").notNull(),
   currentBid: integer("currentBid").notNull().default(0),
   startingPrice: integer("startingPrice").notNull().default(0),
-  bidInterval: integer("bidInterval").notNull().default(50),
+  bidInterval: integer("bidInterval").notNull(),
+  endDate: timestamp("endDate",{mode: "date"} ).notNull(),
 });
 
 export const bids = pgTable("bidder_bids", {
