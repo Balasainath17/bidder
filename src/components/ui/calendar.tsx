@@ -8,10 +8,9 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { isBefore } from "date-fns"
 
-
-
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
-
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  minDate?: Date
+}
 
 function Calendar({
   className,
@@ -20,7 +19,6 @@ function Calendar({
   minDate,
   ...props
 }: CalendarProps) {
-
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -59,7 +57,7 @@ function Calendar({
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
       }}
-      disabled={(date) => minDate && isBefore(date, minDate)} // Disable dates before minDate
+      disabled={(date) => !!minDate && isBefore(date, minDate)} // Ensure always returns a boolean
       {...props}
     />
   );
