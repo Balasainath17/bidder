@@ -7,12 +7,12 @@ import { pageTitlestyles } from "@/styles";
 import { DatePickerDemo } from "@/components/date-picker";
 import React, { useState } from "react";
 import { isBefore, parseISO, startOfHour } from "date-fns";
+export const dynamic = "force-dynamic";
+
 
 export default function CreatePage() {
   const [date, setDate] = useState<Date | undefined>();
-
- 
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
   return (
@@ -22,6 +22,7 @@ export default function CreatePage() {
         className="flex flex-col  border p-8 rounded-xl space-y-4 max-w-lg shadow-2xl bg-[#c4c4ef]"
         onSubmit={async (e) => {
           e.preventDefault();
+          setIsLoading(true);
 
           if(!date){
             return;
@@ -46,6 +47,8 @@ export default function CreatePage() {
             bidInterval: Number(formData.get("Bid Interval") as string),
             endDate: date,
           });
+          
+          setIsLoading(false);
         }}
       >
         <Input
@@ -80,9 +83,15 @@ export default function CreatePage() {
         <DatePickerDemo 
         date={date}  setDate={setDate} />
         </div>
-        <Button className="self-end" type="submit">
-          Post Item
-        </Button>
+        {
+          isLoading? (
+            <Button variant="secondary" disabled>
+              Posting Item...
+            </Button>
+          ) : (
+            <Button type="submit">Post Item</Button>
+          )
+        }
       </form>
     </main>
   );

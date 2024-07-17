@@ -1,6 +1,7 @@
 import { database } from "@/db/database";
 import { ItemCard } from "../item-card";
 import { pageTitlestyles } from "@/styles";
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
 
