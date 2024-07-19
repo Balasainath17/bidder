@@ -73,15 +73,7 @@ export function Header() {
 
                 {userId && (
                   <>
-                    {/* {session?.data?.user?.image && (
-                      <Image
-                        src={session.data.user.image}
-                        width="40"
-                        height="40"
-                        alt="user avatar"
-                        className="rounded-full"
-                      />
-                    )} */}
+                   
                     <div className="pt-1.5 text-white hover:text-[#fff94bf7]">
                       <NotificationIconButton
                         ref={notifButtonRef}
@@ -112,6 +104,15 @@ export function Header() {
                         </NotificationCell>
                       )}
                     />
+                     {session?.data?.user?.image && (
+                      <Image
+                        src={session.data.user.image}
+                        width="40"
+                        height="40"
+                        alt="user avatar"
+                        className="rounded-full"
+                      />
+                    )}
                   </>
                 )}
 
@@ -139,15 +140,7 @@ export function Header() {
               <div className="flex p-4 space-x-4 1000px:hidden">
                 {userId && (
                   <>
-                    {/* {session?.data?.user?.image && (
-                      <Image
-                        src={session.data.user.image}
-                        width="40"
-                        height="40"
-                        alt="user avatar"
-                        className="rounded-full"
-                      />
-                    )} */}
+                   
                     <div className="pt-1.5 text-white hover:text-[#fff94bf7]">
                       <NotificationIconButton
                         ref={notifButtonRef}
@@ -178,6 +171,15 @@ export function Header() {
                         </NotificationCell>
                       )}
                     />
+                     {session?.data?.user?.image && (
+                      <Image
+                        src={session.data.user.image}
+                        width="40"
+                        height="40"
+                        alt="user avatar"
+                        className="rounded-full"
+                      />
+                    )}
                   </>
                 )}
               </div>

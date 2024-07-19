@@ -27,7 +27,7 @@ export default async function ItemPage({
     return (
       <div className="flex flex-col items-center justify-center space-y-8">
         <Image
-          className="pt-8 object-cover w-[300px] h-[300px]"
+          className="pt-8 "
           src="/package.svg"
           width="300"
           height="300"
@@ -61,7 +61,7 @@ export default async function ItemPage({
           <h2 className="text-md md:text-xl text-center">Available at <span className="font-bold">{item.location}</span> </h2>
          <div className="p-2">
          <Image
-            className="bg-slate-200 rounded-xl"
+            className="bg-slate-200 rounded-xl object-cover w-[250px] h-[250px]"
             src={getImageUrl(item.fileKey)}
             alt={item.name}
             width={250}
